@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.dgut</groupId>
-	<artifactId>CollegeMarket</artifactId>
+	<artifactId>Lor</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CollegeMarket Maven Webapp</name>
+	<name>Lor Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<repositories>
@@ -152,6 +152,13 @@
 
 		<!-- json -->
 		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.2.3</version>
+			<classifier>jdk13</classifier>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 			<version>${jackson.version}</version>
@@ -282,7 +289,7 @@
 					</webApp>
 					<reload>automatic</reload>
 					<scanIntervalSeconds>1</scanIntervalSeconds>
-							
+
 					<jvmArgs>-XX:PermSize=256M -XX:MaxPermSize=512M</jvmArgs>
 				</configuration>
 			</plugin>
