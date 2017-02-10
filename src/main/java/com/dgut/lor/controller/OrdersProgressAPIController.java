@@ -17,14 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.dgut.lor.entity.Contact;
-import com.dgut.lor.entity.Goods;
 import com.dgut.lor.entity.Orders;
 import com.dgut.lor.entity.OrdersProgress;
 import com.dgut.lor.entity.Records;
 import com.dgut.lor.entity.User;
-import com.dgut.lor.service.IContactService;
-import com.dgut.lor.service.IGoodsService;
 import com.dgut.lor.service.IOrdersProgressService;
 import com.dgut.lor.service.IOrdersService;
 import com.dgut.lor.service.IRecordsService;
@@ -40,19 +36,13 @@ public class OrdersProgressAPIController {
 	@Autowired
 	IOrdersService ordersService;
 	
-	@Autowired
-	IGoodsService goodsService;
 
 	@Autowired
 	IOrdersProgressService ordersProgressService;
 	
 	@Autowired
 	IRecordsService recordsService;
-	/**
-	 * �ҵ���ǰ�û� 
-	 * @param request
-	 * @return user
-	 */
+
 	public User getCurrentUser(HttpServletRequest request) {
 		HttpSession session = request.getSession(true);
 		Integer uid = (Integer) session.getAttribute("uid");
@@ -75,38 +65,27 @@ public class OrdersProgressAPIController {
 		orders.setState(state);
 		orders=	ordersService.save(orders);
 		
-		
-		
-			
 			if(state==7)
 			{
 				User buyer = orders.getBuyer();
 				User user=	userService.save(buyer);
-				
-				Goods goods = goodsService.findOne(orders.getGoods().getId());
-				goods.setQuantity(goods.getQuantity()+orders.getQuantity());
-				goodsService.save(goods);
-				
-				addRecords(user,"����("+orders.getId()+") �˿���",orders.getPrice()*orders.getQuantity());
+			
+				addRecords(user,"完成了订单("+orders.getId()+") 支出服务费",orders.getPrice());
 			}
 			if(state==4)
 			{
-				User publishers = orders.getGoods().getPublishers();
-				User user=	userService.save(publishers);
-				addRecords(user,"����("+orders.getId()+") ׬ȡ��",orders.getPrice()*orders.getQuantity());
+				User seller = orders.getSeller();
+				User user=	userService.save(seller);
+				addRecords(user,"完成了订单("+orders.getId()+") 获得服务费",orders.getPrice());
 			}
-		
-		
 		return progress;
 	}
 
 	@RequestMapping(value = "/byOrdersId/{page}", method = RequestMethod.POST)
 	public Page<OrdersProgress> findOrdersProgressPageByOrdersId(@PathVariable int page,@RequestParam int orders_id,
 			HttpServletRequest request) {
-
 		return ordersProgressService.findOrdersProgressPageByOrdersId(orders_id, page);
 	}
-
 
 	public Records addRecords(User user, String cause, double coin
 			) {

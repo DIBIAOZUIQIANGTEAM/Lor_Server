@@ -10,19 +10,19 @@ import com.dgut.lor.util.DateRecord;
 
 public class Advertisement extends DateRecord{
 
-	Goods goods;
+	Seller seller;
 	String imgurl;
 	int type;
 	
 	@ManyToOne(optional=false)
-	public Goods getGoods() {
-		return goods;
-	}
-	public void setGoods(Goods goods) {
-		this.goods = goods;
-	}
 	public String getImgurl() {
 		return imgurl;
+	}
+	public Seller getSeller() {
+		return seller;
+	}
+	public void setSeller(Seller seller) {
+		this.seller = seller;
 	}
 	public void setImgurl(String imgurl) {
 		this.imgurl = imgurl;

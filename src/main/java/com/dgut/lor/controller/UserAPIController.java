@@ -52,7 +52,7 @@ public class UserAPIController {
 
 		}
 		System.out.println("注册失败");
-		return JsonUtils.toJson(2, "注册失败,用户已经存在", null);
+		return JsonUtils.toJson(2, "注册失败,用户已经存在", "");
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -69,7 +69,7 @@ public class UserAPIController {
 
 		}
 		System.out.println("注册失败");
-		return JsonUtils.toJson(2, "注册失败,用户已经存在", null);
+		return JsonUtils.toJson(2, "注册失败,用户已经存在", "");
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -86,7 +86,7 @@ public class UserAPIController {
 			return JsonUtils.toJson(1, "login成功", userService.save(user));
 		} else {
 			System.out.println("login失败");
-			return JsonUtils.toJson(3, "login失败,密码不正确", null);
+			return JsonUtils.toJson(3, "login失败,密码不正确", "");
 		}
 	}
 

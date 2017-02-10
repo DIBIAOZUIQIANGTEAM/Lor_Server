@@ -1,26 +1,27 @@
 package com.dgut.lor.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 import com.dgut.lor.util.DateRecord;
 
 
-/**
- * @author ���
- *������
- */
 @Entity
 public class Orders extends DateRecord{
-	User buyer;//������
-	Goods goods;//��Ʒ
-	Contact contact;//��ϵ��Ϣ
-	double price;//�۸�
-	int quantity;//��Ʒ����
+	User buyer;
+	User seller;
+	
+	String goods;
+	double price;
 	String note;
 	boolean isPayOnline;
-	int state;//״̬��1��ʾ�������ύ��δ�ӵ���2��ʾ�Ѿ��ӵ���3��ʾ�����ͣ�4��ʾȷ���ջ���������ɣ�5��ʾ�Ѿ����ۣ� 6��ʾ����ȡ�� ��7��ʾ����ͬ��ȡ��8��ʾ�����ܾ�ȡ�� 
-	
+	int state;
+	String workTime;
+	String realName;
+	String address;
+	String phone;
 	
 	@ManyToOne(optional=false)
 	public User getBuyer() {
@@ -29,33 +30,26 @@ public class Orders extends DateRecord{
 	public void setBuyer(User buyer) {
 		this.buyer = buyer;
 	}
-	
 	@ManyToOne(optional=false)
-	public Goods getGoods() {
+	public User getSeller() {
+		return seller;
+	}
+	public void setSeller(User seller) {
+		this.seller = seller;
+	}
+	
+	public String getGoods() {
 		return goods;
 	}
-	public void setGoods(Goods goods) {
+	public void setGoods(String goods) {
 		this.goods = goods;
 	}
-	
-	@ManyToOne(optional=false)
-	public Contact getContact() {
-		return contact;
-	}
-	public void setContact(Contact contact) {
-		this.contact = contact;
-	}
+
 	public double getPrice() {
 		return price;
 	}
 	public void setPrice(double price) {
 		this.price = price;
-	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
 	}
 	public String getNote() {
 		return note;
@@ -63,10 +57,10 @@ public class Orders extends DateRecord{
 	public void setNote(String note) {
 		this.note = note;
 	}
-	public boolean isPayOnline() {
+	public boolean getIsPayOnline() {
 		return isPayOnline;
 	}
-	public void setPayOnline(boolean isPayOnline) {
+	public void setIsPayOnline(boolean isPayOnline) {
 		this.isPayOnline = isPayOnline;
 	}
 	public int getState() {
@@ -75,7 +69,31 @@ public class Orders extends DateRecord{
 	public void setState(int state) {
 		this.state = state;
 	}
-
+	public String getWorkTime() {
+		return workTime;
+	}
+	public void setWorkTime(String workTime) {
+		this.workTime = workTime;
+	}
+	public String getRealName() {
+		return realName;
+	}
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
 
 	
 }

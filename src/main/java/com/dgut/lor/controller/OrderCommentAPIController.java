@@ -18,14 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.dgut.lor.entity.Contact;
-import com.dgut.lor.entity.Goods;
 import com.dgut.lor.entity.Orders;
 import com.dgut.lor.entity.OrdersComment;
 import com.dgut.lor.entity.OrdersProgress;
 import com.dgut.lor.entity.User;
-import com.dgut.lor.service.IContactService;
-import com.dgut.lor.service.IGoodsService;
 import com.dgut.lor.service.IOrdersCommentService;
 import com.dgut.lor.service.IOrdersProgressService;
 import com.dgut.lor.service.IOrdersService;
@@ -44,24 +40,14 @@ public class OrderCommentAPIController {
 	@Autowired
 	IOrdersService orderService;
 	
-	/**
-	 * �ҵ���ǰ�û�
-	 * 
-	 * @param request
-	 * @return user
-	 */
+
 	public User getCurrentUser(HttpServletRequest request) {
 		HttpSession session = request.getSession(true);
 		Integer uid = (Integer) session.getAttribute("uid");
 		return userService.findById(uid);
 	}
 
-	/**
-	 *  �����Ʒ����
-	 * @param orders_id
-	 * @param comments
-	 * @return
-	 */
+
 	@RequestMapping(value="/addcomment",method=RequestMethod.POST)
 	public OrdersComment addOrderComment(
 			@RequestParam int orders_id,
@@ -78,10 +64,7 @@ public class OrderCommentAPIController {
 		return orderCommentService.save(ordersComment);
 	}
 	
-	/**
-	 * ��ȡ��Ʒ����
-	 * @return
-	 */
+
 	@RequestMapping(value="/getcomment",method=RequestMethod.POST)
 	public Page<OrdersComment> getOrderComment(
 			@RequestParam int goodsId,

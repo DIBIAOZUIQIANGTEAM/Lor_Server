@@ -8,10 +8,6 @@ import com.dgut.lor.util.CreateDateRecord;
 import com.dgut.lor.util.DateRecord;
 
 
-/**
- * @author ���
- *������̱�
- */
 @Entity
 public class OrdersProgress extends CreateDateRecord{
 	

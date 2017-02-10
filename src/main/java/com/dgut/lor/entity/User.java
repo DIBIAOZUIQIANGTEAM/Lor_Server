@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import com.dgut.lor.util.CreateDateRecord;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User extends CreateDateRecord{
@@ -12,11 +13,13 @@ public class User extends CreateDateRecord{
 	String name;
 	String avatar;
 	String email;
+	double coin;
 	
 	@Column(unique=true)
 	public String getAccount() {
 		return account;
 	}
+	@JsonIgnore
 	public String getPasswordHash() {
 		return passwordHash;
 	}
@@ -45,6 +48,12 @@ public class User extends CreateDateRecord{
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public double getCoin() {
+		return coin;
+	}
+	public void setCoin(double coin) {
+		this.coin = coin;
 	}
 	
 	

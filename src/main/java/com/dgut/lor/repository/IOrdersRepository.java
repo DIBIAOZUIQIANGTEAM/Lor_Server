@@ -9,7 +9,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import com.dgut.lor.entity.Admin;
-import com.dgut.lor.entity.Goods;
 import com.dgut.lor.entity.Orders;
 
 @Repository

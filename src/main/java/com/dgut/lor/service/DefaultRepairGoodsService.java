@@ -12,38 +12,29 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dgut.lor.entity.Admin;
-import com.dgut.lor.entity.Goods;
+import com.dgut.lor.entity.RepairGoods;
 import com.dgut.lor.repository.IAdminRepository;
-import com.dgut.lor.repository.IGoodsRepository;
+import com.dgut.lor.repository.IRepairGoodsRepository;
 
 @Component
 @Service
 @Transactional
-public class DefaultGoodsService implements IGoodsService {
+public class DefaultRepairGoodsService implements IRepairGoodsService {
 
 	@Autowired
-	IGoodsRepository goodsRepo;
+	IRepairGoodsRepository goodsRepo;
+
+	@Override
+	public Iterable<RepairGoods> findRepairGoods(String seller_account) {
+	
+		return goodsRepo.findRepairGoods(seller_account);
+	}
 
 
 	@Override
-	public Goods save(Goods goods) {
+	public RepairGoods save(RepairGoods goods) {
+		// TODO Auto-generated method stub
 		return goodsRepo.save(goods);
-	}
-
-
-	@Override
-	public Page<Goods> getGoodsPage(int page) {
-		
-		Sort sort = new Sort(Direction.DESC,"createDate");
-        PageRequest pageRequest=new PageRequest(page, 10, sort);
-		
-		return goodsRepo.findAll(pageRequest);
-	}
-
-
-	@Override
-	public Goods findOne(int goods_id) {
-		return goodsRepo.findOne(goods_id);
 	}
 	
 	

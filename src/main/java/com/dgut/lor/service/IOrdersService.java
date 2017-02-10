@@ -2,7 +2,6 @@ package com.dgut.lor.service;
 
 import org.springframework.data.domain.Page;
 
-import com.dgut.lor.entity.Goods;
 import com.dgut.lor.entity.Orders;
 import com.dgut.lor.entity.User;
 

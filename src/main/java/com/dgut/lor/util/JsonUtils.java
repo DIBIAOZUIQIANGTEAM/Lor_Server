@@ -18,28 +18,30 @@ import net.sf.json.JsonConfig;
 public class JsonUtils {
 
 	// 把用户信息转换成json
-	public static JSONObject toJson(int code, String messege, User user) {
+	public static JSONObject toJson(int code, String messege, Object object) {
+JSONObject jsonObject = new JSONObject();
 
-		
-		
-		
-	
+		jsonObject.put("code", code);
+		jsonObject.put("messege", messege);
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		objectMapper.setDateFormat(sdf);
 		StringWriter str = new StringWriter();
-		try {
-		    objectMapper.writeValue(str, user);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (!object.toString().equals("")) {
+			try {
+				objectMapper.writeValue(str, object);
+				jsonObject.put("data", str.toString());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		JSONObject jsonObject = new JSONObject();
-
-		jsonObject.put("code", code);
-		jsonObject.put("messege", messege);
-		jsonObject.put("data", str.toString());
-		System.out.println("jsonObject "+jsonObject);
+		else{
+			jsonObject.put("data", null);
+		}
+		
+		
+		System.out.println("jsonObject " + jsonObject);
 		return jsonObject;
 
 	}

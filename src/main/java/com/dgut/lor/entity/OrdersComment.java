@@ -6,10 +6,6 @@ import javax.persistence.ManyToOne;
 import com.dgut.lor.util.DateRecord;
 
 
-/**
- * @author ����
- *��������
- */
 @Entity
 public class OrdersComment extends DateRecord{
 	

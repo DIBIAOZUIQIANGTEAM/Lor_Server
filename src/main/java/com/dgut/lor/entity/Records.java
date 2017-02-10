@@ -10,9 +10,9 @@ import com.dgut.lor.util.DateRecord;
 
 @Entity
 public class Records extends DateRecord{
-	double coin;//�������
-	User user;//�û�
-	String cause;//���ı�ԭ������
+	double coin;
+	User user;
+	String cause;
 	
 	public double getCoin() {
 		return coin;
