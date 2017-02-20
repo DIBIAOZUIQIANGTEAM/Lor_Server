@@ -25,13 +25,13 @@ import com.dgut.lor.service.IAdvertisementService;
 @RequestMapping("/api/goods")
 public class AdvertisementAPIController {
 
-	@Autowired
-	IAdvertisementService advertisementService;
-
-	
-	@RequestMapping(value = "/all/advertisement/{page}")
-	public Page<Advertisement> getAdvertisementPage(@PathVariable int page) {
-		return advertisementService.getAdvertisements(page);
-	}
+//	@Autowired
+//	IAdvertisementService advertisementService;
+//
+//	
+//	@RequestMapping(value = "/all/advertisement/{page}")
+//	public Page<Advertisement> getAdvertisementPage(@PathVariable int page) {
+//		return advertisementService.getAdvertisements(page);
+//	}
 	
 }

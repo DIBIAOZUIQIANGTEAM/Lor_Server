@@ -10,5 +10,7 @@ public interface IRepairGoodsService {
 	RepairGoods save(RepairGoods goods);
 
 	Iterable<RepairGoods> findRepairGoods(String seller_account);
+
+	void deleteBySellerID(int seller_id);
 	
 }

@@ -31,44 +31,44 @@ import com.dgut.lor.service.IUserService;
 @RequestMapping("/api/orderscomment")
 public class OrderCommentAPIController {
 
-	@Autowired
-	IUserService userService;
-
-	@Autowired
-	IOrdersCommentService orderCommentService;
-	
-	@Autowired
-	IOrdersService orderService;
-	
-
-	public User getCurrentUser(HttpServletRequest request) {
-		HttpSession session = request.getSession(true);
-		Integer uid = (Integer) session.getAttribute("uid");
-		return userService.findById(uid);
-	}
-
-
-	@RequestMapping(value="/addcomment",method=RequestMethod.POST)
-	public OrdersComment addOrderComment(
-			@RequestParam int orders_id,
-			@RequestParam String comments) {
-		OrdersComment ordersComment = new OrdersComment();
-		
-		Orders orders = orderService.findOne(orders_id);
-		orders.setState(5);
-		orderService.save(orders);
-		
-		ordersComment.setOrders(orderService.findOne(orders_id));
-		ordersComment.setComments(comments);
-		
-		return orderCommentService.save(ordersComment);
-	}
-	
-
-	@RequestMapping(value="/getcomment",method=RequestMethod.POST)
-	public Page<OrdersComment> getOrderComment(
-			@RequestParam int goodsId,
-			@RequestParam int page){
-		return orderCommentService.findAllByGoodsId(goodsId, page);
-	}
+//	@Autowired
+//	IUserService userService;
+//
+//	@Autowired
+//	IOrdersCommentService orderCommentService;
+//	
+//	@Autowired
+//	IOrdersService orderService;
+//	
+//
+//	public User getCurrentUser(HttpServletRequest request) {
+//		HttpSession session = request.getSession(true);
+//		Integer uid = (Integer) session.getAttribute("uid");
+//		return userService.findById(uid);
+//	}
+//
+//
+//	@RequestMapping(value="/addcomment",method=RequestMethod.POST)
+//	public OrdersComment addOrderComment(
+//			@RequestParam int orders_id,
+//			@RequestParam String comments) {
+//		OrdersComment ordersComment = new OrdersComment();
+//		
+//		Orders orders = orderService.findOne(orders_id);
+//		orders.setState(5);
+//		orderService.save(orders);
+//		
+//		ordersComment.setOrders(orderService.findOne(orders_id));
+//		ordersComment.setComments(comments);
+//		
+//		return orderCommentService.save(ordersComment);
+//	}
+//	
+//
+//	@RequestMapping(value="/getcomment",method=RequestMethod.POST)
+//	public Page<OrdersComment> getOrderComment(
+//			@RequestParam int goodsId,
+//			@RequestParam int page){
+//		return orderCommentService.findAllByGoodsId(goodsId, page);
+//	}
 }

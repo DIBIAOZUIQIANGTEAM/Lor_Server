@@ -21,38 +21,23 @@ public class DefaultOrdresService implements IOrdersService {
 	@Autowired
 	IOrdersRepository ordersRepo;
 
-	//�½�����
 	@Override
 	public Orders save(Orders orders) {
-		
-		
 		return ordersRepo.save(orders);
 	}
 
 	@Override
 	public Page<Orders> findOrdersPageByBuyerId(Integer id, int page) {
-	
-		
 		Sort sort = new Sort(Direction.DESC,"createDate");
         PageRequest pageRequest=new PageRequest(page, 10, sort);
-		
 		
 		return ordersRepo.findOrdersPageByBuyerId(id,pageRequest);
 	}
 
-	@Override
-	public Page<Orders> findOrdersPageByUserId(Integer id, int publishers_id,
-			int page) {
-		Sort sort = new Sort(Direction.DESC,"createDate");
-        PageRequest pageRequest=new PageRequest(page, 10, sort);
-		
-		
-		return ordersRepo.findOrdersPageByUserId(id,publishers_id,pageRequest);
-	}
+
 
 	@Override
 	public Orders findOne(int orders_id) {
-		// TODO Auto-generated method stub
 		return ordersRepo.findOne(orders_id);
 	}
 

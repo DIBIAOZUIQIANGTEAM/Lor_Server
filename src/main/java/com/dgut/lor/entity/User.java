@@ -19,7 +19,7 @@ public class User extends CreateDateRecord{
 	public String getAccount() {
 		return account;
 	}
-	@JsonIgnore
+
 	public String getPasswordHash() {
 		return passwordHash;
 	}

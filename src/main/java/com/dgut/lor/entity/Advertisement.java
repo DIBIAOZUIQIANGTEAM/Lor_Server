@@ -14,10 +14,11 @@ public class Advertisement extends DateRecord{
 	String imgurl;
 	int type;
 	
-	@ManyToOne(optional=false)
+
 	public String getImgurl() {
 		return imgurl;
 	}
+	@ManyToOne(optional=false)
 	public Seller getSeller() {
 		return seller;
 	}

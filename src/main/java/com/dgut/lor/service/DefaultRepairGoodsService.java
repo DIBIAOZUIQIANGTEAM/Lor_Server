@@ -33,9 +33,11 @@ public class DefaultRepairGoodsService implements IRepairGoodsService {
 
 	@Override
 	public RepairGoods save(RepairGoods goods) {
-		// TODO Auto-generated method stub
 		return goodsRepo.save(goods);
 	}
 	
-	
+	@Override
+	public void deleteBySellerID(int seller_id) {
+		 goodsRepo.deleteBySellerID( seller_id);
+	}
 }

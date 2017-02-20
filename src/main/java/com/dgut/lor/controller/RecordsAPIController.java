@@ -1,8 +1,9 @@
 package com.dgut.lor.controller;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import com.dgut.lor.entity.Records;
 import com.dgut.lor.entity.User;
 import com.dgut.lor.service.IRecordsService;
 import com.dgut.lor.service.IUserService;
+import com.dgut.lor.util.JsonUtils;
 
 @RestController
 @RequestMapping("/api/rec")
@@ -26,9 +28,10 @@ public class RecordsAPIController {
 
 	@Autowired
 	IRecordsService recordsService;
-//	
-//	@Autowired
-//	ISubscribeService subscribeService;
+
+	//
+	// @Autowired
+	// ISubscribeService subscribeService;
 
 	/**
 	 * �ҵ���ǰ�û�
@@ -57,30 +60,31 @@ public class RecordsAPIController {
 
 	}
 
-	@RequestMapping(value ="/records/{page}")
-	public Page<Records> getRecordsByUserId(@PathVariable int page,
-			HttpServletRequest request) {
 
-		return recordsService.getRecordsByUserId(getCurrentUser(request), page);
+
+	@RequestMapping(value ="/records" ,method = RequestMethod.POST)
+	public JSONObject getRecordsByUserId(@RequestParam int page, HttpServletRequest request) {
+		
+		Page<Records> rePage=recordsService.getRecordsByUserId(getCurrentUser(request), page);
+		if(rePage!=null){
+			return JsonUtils.toJson(1, "成功", rePage);
+		}else{
+			return JsonUtils.toJson(2, "失败", "");
+		}
+		 
 	}
 
-	@RequestMapping(value ="/records")
-	public Page<Records> getRecordsByUserId(HttpServletRequest request) {
-		return recordsService.getRecordsByUserId(getCurrentUser(request), 0);
-	}
+	@RequestMapping(value = "/records/recharge", method = RequestMethod.POST)
+	public Records recharge(@RequestParam double coin,
+			@RequestParam String cause, HttpServletRequest request) {
 
-	@RequestMapping(value ="/records/recharge",method=RequestMethod.POST)
-	public Records recharge(@RequestParam double coin,@RequestParam String cause,
-			HttpServletRequest request){
-	
 		return addRecords(getCurrentUser(request), cause, coin, request);
 	}
-	
+
 	@RequestMapping("/search/{keyword}")
-	public Page<User> searchUserWithKeyword (
-		@PathVariable String keyword,
-		@RequestParam(defaultValue = "0") int page){
-		return userService.searchUserWithKeyword(keyword,page);
+	public Page<User> searchUserWithKeyword(@PathVariable String keyword,
+			@RequestParam(defaultValue = "0") int page) {
+		return userService.searchUserWithKeyword(keyword, page);
 	}
-	
+
 }

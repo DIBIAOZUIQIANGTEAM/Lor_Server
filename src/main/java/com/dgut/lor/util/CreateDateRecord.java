@@ -20,9 +20,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @MappedSuperclass
 public class CreateDateRecord extends BaseEntity {
 	
-	
+
 	Date createDate;
-	
 	
 	@Column(updatable=false)
 	public Date getCreateDate() {
