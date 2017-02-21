@@ -13,6 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.jiguang.common.ClientConfig;
+import cn.jiguang.common.resp.APIConnectionException;
+import cn.jiguang.common.resp.APIRequestException;
+import cn.jpush.api.JPushClient;
+import cn.jpush.api.push.PushResult;
+import cn.jpush.api.push.model.PushPayload;
+
 import com.dgut.lor.entity.Orders;
 import com.dgut.lor.entity.OrdersProgress;
 import com.dgut.lor.entity.Records;
@@ -26,6 +33,10 @@ import com.dgut.lor.util.JsonUtils;
 @RestController
 @RequestMapping("/api/orders/progress")
 public class OrdersProgressAPIController {
+
+	private static final String MASTER_SECRET = "0209d339aeb4034e040b27cb";
+
+	private static final String APP_KEY = "722c6d173c859f33536f05e1";
 
 	@Autowired
 	IUserService userService;
@@ -49,7 +60,7 @@ public class OrdersProgressAPIController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public JSONObject addOrdersProgress(@RequestParam int orders_id,
 			@RequestParam String  content, @RequestParam String title, @RequestParam int state,
-		 HttpServletRequest request) {
+		 HttpServletRequest request) throws APIConnectionException, APIRequestException {
 
 		Orders orders=new Orders();
 		orders.setId(orders_id);
@@ -61,6 +72,16 @@ public class OrdersProgressAPIController {
 		orders=ordersService.findOne(orders_id);
 		orders.setState(state);
 		orders=	ordersService.save(orders);
+		
+		
+		  JPushClient jpushClient = new JPushClient(MASTER_SECRET, APP_KEY, null, ClientConfig.getInstance());
+
+		    // For push, all you need do is to build PushPayload object.
+		    PushPayload payload = buildPushObject_all_all_alert();
+
+		  
+		        PushResult result = jpushClient.sendPush(payload);
+		     
 		
 			if(state==7)
 			{
@@ -79,7 +100,9 @@ public class OrdersProgressAPIController {
 			return JsonUtils.toJson(1, "成功", progress);
 		return JsonUtils.toJson(2, "失败", "");
 	}
-
+	   public static PushPayload buildPushObject_all_all_alert() {
+	        return PushPayload.alertAll("13172837508");
+	    }
 	@RequestMapping(value = "/byOrdersId", method = RequestMethod.POST)
 	public JSONObject findOrdersProgressPageByOrdersId(@RequestParam int page,@RequestParam int orders_id,
 			HttpServletRequest request) {
