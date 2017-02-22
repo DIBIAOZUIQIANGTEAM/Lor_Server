@@ -38,6 +38,10 @@ import com.dgut.lor.util.HttpRequest;
 import com.dgut.lor.util.JsonUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
+/**
+ * 卖家用户信息api
+ */
 @RestController
 @RequestMapping("/api/seller")
 public class SellerAPIController {
@@ -54,6 +58,8 @@ public class SellerAPIController {
 
 		if (userService.findByAccount(account) == null) {
 
+			
+			
 			User user = new User();
 			user.setAccount(account);
 			user.setPasswordHash(passwordHash);
