@@ -12,7 +12,7 @@ public class APIController {
 
 	@RequestMapping(value = "/hello", method=RequestMethod.GET)
 	public @ResponseBody String hello(){
-		return "HELLO  Lor!";
+		return "HELLO  LOR!";
 	}
 		
 }
