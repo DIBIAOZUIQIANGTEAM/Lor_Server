@@ -6,7 +6,9 @@ import javax.persistence.ManyToOne;
 import com.dgut.lor.util.DateRecord;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
+/*
+ * 维修商品变
+ */
 @Entity
 public class RepairGoods extends DateRecord{
 	User seller;

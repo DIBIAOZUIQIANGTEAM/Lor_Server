@@ -19,6 +19,11 @@ import com.dgut.lor.service.IRecordsService;
 import com.dgut.lor.service.IUserService;
 import com.dgut.lor.util.JsonUtils;
 
+
+/*
+ * 消费纪录相关api  
+ * entity:Records
+ */
 @RestController
 @RequestMapping("/api/rec")
 public class RecordsAPIController {
@@ -29,16 +34,6 @@ public class RecordsAPIController {
 	@Autowired
 	IRecordsService recordsService;
 
-	//
-	// @Autowired
-	// ISubscribeService subscribeService;
-
-	/**
-	 * �ҵ���ǰ�û�
-	 * 
-	 * @param request
-	 * @return user
-	 */
 	@RequestMapping(value = "/me", method = RequestMethod.GET)
 	public User getCurrentUser(HttpServletRequest request) {
 		HttpSession session = request.getSession(true);
@@ -46,22 +41,9 @@ public class RecordsAPIController {
 		return userService.findById(uid);
 	}
 
-	public Records addRecords(User user, String cause, double coin,
-			HttpServletRequest request) {
-		User me = getCurrentUser(request);
-		Records records = new Records();
-		records.setCause(cause);
-		records.setUser(me);
-		records.setCoin(coin);
-
-		records = recordsService.save(records);
-
-		return records;
-
-	}
-
-
-
+	/*
+	 * 分页取出消费纪录
+	 */
 	@RequestMapping(value ="/records" ,method = RequestMethod.POST)
 	public JSONObject getRecordsByUserId(@RequestParam int page, HttpServletRequest request) {
 		
@@ -72,19 +54,6 @@ public class RecordsAPIController {
 			return JsonUtils.toJson(2, "失败", "");
 		}
 		 
-	}
-
-	@RequestMapping(value = "/records/recharge", method = RequestMethod.POST)
-	public Records recharge(@RequestParam double coin,
-			@RequestParam String cause, HttpServletRequest request) {
-
-		return addRecords(getCurrentUser(request), cause, coin, request);
-	}
-
-	@RequestMapping("/search/{keyword}")
-	public Page<User> searchUserWithKeyword(@PathVariable String keyword,
-			@RequestParam(defaultValue = "0") int page) {
-		return userService.searchUserWithKeyword(keyword, page);
 	}
 
 }

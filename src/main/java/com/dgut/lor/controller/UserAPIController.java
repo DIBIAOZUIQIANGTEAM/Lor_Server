@@ -30,6 +30,9 @@ import com.dgut.lor.util.HttpRequest;
 import com.dgut.lor.util.JsonUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 买家用户信息api，买家客户端访问
+ */
 @RestController
 @RequestMapping("/api/user")
 public class UserAPIController {
@@ -40,24 +43,9 @@ public class UserAPIController {
 	@Autowired
 	IRecordsService recordsService;
 
-	@RequestMapping(value = "/register/{account}+{passwordHash}", method = RequestMethod.GET)
-	public JSONObject registerGet(@PathVariable String account,
-			@PathVariable String passwordHash) {
-
-		if (userService.findByAccount(account) == null) {
-
-			User user = new User();
-			user.setAccount(account);
-			user.setPasswordHash(passwordHash);
-			user = userService.save(user);
-
-			return JsonUtils.toJson(1, "注册成功", user);
-
-		}
-		System.out.println("注册失败");
-		return JsonUtils.toJson(2, "注册失败,用户已经存在", "");
-	}
-
+	/*
+	 * 买家注册
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public JSONObject register(@RequestParam String account,
 			@RequestParam String passwordHash) {
@@ -75,26 +63,9 @@ public class UserAPIController {
 		return JsonUtils.toJson(2, "注册失败,用户已经存在", "");
 	}
 
-	
-//	@RequestMapping(value = "/register", method = RequestMethod.POST)
-//	public JSONObject registerBD(@RequestParam String account,
-//			@RequestParam String passwordHash) {
-//
-//		if (userService.findByAccount(account) == null) {
-//
-//			User user = new User();
-//			user.setAccount(account);
-//			user.setPasswordHash(passwordHash);
-//			System.out.println("注册成功");
-//			return JsonUtils.toJson(1, "注册成功", userService.save(user));
-//
-//		}
-//		System.out.println("注册失败");
-//		return JsonUtils.toJson(2, "注册失败,用户已经存在", "");
-//	}
-//	
-	
-	
+	/*
+	 * 买家登录
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public JSONObject login(@RequestParam String account,
 			@RequestParam String passwordHash, HttpServletRequest request) {
@@ -106,7 +77,7 @@ public class UserAPIController {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("uid", user.getId());
 			Integer uid = (Integer) session.getAttribute("uid");
-			System.out.println("login成功 uid:"+uid);
+			System.out.println("login成功 uid:" + uid);
 			return JsonUtils.toJson(1, "login成功", userService.save(user));
 		} else {
 			System.out.println("login失败");
@@ -114,23 +85,9 @@ public class UserAPIController {
 		}
 	}
 
-	@RequestMapping(value = "/me", method = RequestMethod.GET)
-	public User getCurrentUser(HttpServletRequest request) {
-		HttpSession session = request.getSession(true);
-		Integer uid = (Integer) session.getAttribute("uid");
-		return userService.findById(uid);
-	}
-	@RequestMapping(value = "/me", method = RequestMethod.POST)
-	public JSONObject getCurrentUserPost(HttpServletRequest request) {
-		HttpSession session = request.getSession(true);
-		Integer uid = (Integer) session.getAttribute("uid");
-		User user=userService.findById(uid);
-		if (user!=null) {
-			return JsonUtils.toJson(1, "查找成功", user);
-		}
-		return JsonUtils.toJson(2, "查找失败", "");
-	}
-	
+	/*
+	 * 更新头像
+	 */
 	@RequestMapping(value = "/update/avatar", method = RequestMethod.POST)
 	public User UpdateAvatar(MultipartFile avatar, HttpServletRequest request) {
 		User user = getCurrentUser(request);
@@ -142,32 +99,36 @@ public class UserAPIController {
 						new File(realPath, getCurrentUser(request).getAccount()
 								+ ".png"));
 				user.setAvatar("upload/user/" + user.getAccount() + ".png");
-				user=userService.save(user);
-			
+				user = userService.save(user);
+
 				return user;
-				
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
-			
 			}
 		}
-			return null;
-		
+		return null;
+
 	}
 
+	/*
+	 * 修改密码
+	 */
 	@RequestMapping(value = "/update/password", method = RequestMethod.POST)
 	public JSONObject UpdatePassword(@RequestParam String newPassword,
 			HttpServletRequest request) {
 		User user = getCurrentUser(request);
 		user.setPasswordHash(newPassword);
-		user=userService.save(user);
-		if (user!=null) {
+		user = userService.save(user);
+		if (user != null) {
 			return JsonUtils.toJson(1, "密码修改成功", user);
 		}
 		return JsonUtils.toJson(2, "密码修改失败", "");
 	}
 
+	/*
+	 * 忘记密码，设置新密码
+	 */
 	@RequestMapping(value = "/forget/password", method = RequestMethod.POST)
 	public JSONObject ForgetPassword(@RequestParam String account,
 			@RequestParam String newPassword) {
@@ -177,45 +138,59 @@ public class UserAPIController {
 			return null;
 		}
 		user.setPasswordHash(newPassword);
-		user=userService.save(user);
-		if (user!=null) {
+		user = userService.save(user);
+		if (user != null) {
 			return JsonUtils.toJson(1, "密码修改成功", user);
 		}
 		return JsonUtils.toJson(2, "密码修改失败", "");
-		
+
 	}
 
+	/*
+	 * 昵称修改
+	 */
 	@RequestMapping(value = "/update/userName", method = RequestMethod.POST)
 	public JSONObject UpdateUserName(@RequestParam String userName,
 			HttpServletRequest request) {
 		User user = getCurrentUser(request);
 		user.setName(userName);
-		user=userService.save(user);
-		
-		
-		if (user!=null) {
+		user = userService.save(user);
+
+		if (user != null) {
 			return JsonUtils.toJson(1, "昵称修改成功", user);
 		}
 		return JsonUtils.toJson(2, "昵称修改失败", "");
 	}
 
-	@RequestMapping(value = "/update/email", method = RequestMethod.POST)
-	public User UpdateUserEmail(@RequestParam String email,
-			HttpServletRequest request) {
-		User user = getCurrentUser(request);
-		if (user == null) {
-			return null;
-		}
-		user.setEmail(email);
-		return userService.save(user);
-	}
-
+	/*
+	 * 客户端注册时用，web端可忽略
+	 */
 	@RequestMapping(value = "/finduser", method = RequestMethod.POST)
 	public JSONObject FindUserByAccount(@RequestParam String account) {
-		User user= userService.findByAccount(account);
-		if (user!=null) {
+		User user = userService.findByAccount(account);
+		if (user != null) {
 			return JsonUtils.toJson(1, "成功", user);
 		}
 		return JsonUtils.toJson(2, "失败", "");
+	}
+
+	/*
+	 * 在线用户自身信息
+	 */
+	@RequestMapping(value = "/me", method = RequestMethod.POST)
+	public JSONObject getCurrentUserPost(HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+		Integer uid = (Integer) session.getAttribute("uid");
+		User user = userService.findById(uid);
+		if (user != null) {
+			return JsonUtils.toJson(1, "查找成功", user);
+		}
+		return JsonUtils.toJson(2, "查找失败", "");
+	}
+
+	public User getCurrentUser(HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+		Integer uid = (Integer) session.getAttribute("uid");
+		return userService.findById(uid);
 	}
 }

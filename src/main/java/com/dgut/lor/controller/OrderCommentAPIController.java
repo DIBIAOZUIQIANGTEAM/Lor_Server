@@ -27,6 +27,11 @@ import com.dgut.lor.service.IOrdersProgressService;
 import com.dgut.lor.service.IOrdersService;
 import com.dgut.lor.service.IUserService;
 
+
+/*
+ * 订单评价相关api
+ * entity:OrdersComment
+ */
 @RestController
 @RequestMapping("/api/orderscomment")
 public class OrderCommentAPIController {

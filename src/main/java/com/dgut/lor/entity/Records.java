@@ -7,12 +7,14 @@ import javax.persistence.ManyToOne;
 
 import com.dgut.lor.util.DateRecord;
 
-
+/*
+ * 消费纪录表
+ */
 @Entity
 public class Records extends DateRecord{
-	double coin;
+	double coin;//此次金额变动数量
 	User user;
-	String cause;
+	String cause;//余额变动原因
 	
 	public double getCoin() {
 		return coin;

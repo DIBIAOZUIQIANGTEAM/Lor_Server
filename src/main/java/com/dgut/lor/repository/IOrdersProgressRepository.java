@@ -8,7 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import com.dgut.lor.entity.Admin;
 import com.dgut.lor.entity.Orders;
 import com.dgut.lor.entity.OrdersProgress;
 

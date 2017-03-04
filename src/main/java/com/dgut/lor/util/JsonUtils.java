@@ -13,13 +13,18 @@ import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
 /**
- * 封装成Json工具类
+ * 服务器返回json数据基本类型
+ * {
+ * 		code:1                //状态码
+ * 		messege:"文字说明"    //状态描述
+ * 		data:数据                        //实体类，若不存在返回null
+ * }
  */
 public class JsonUtils {
 
 	// 把用户信息转换成json
 	public static JSONObject toJson(int code, String messege, Object object) {
-JSONObject jsonObject = new JSONObject();
+		JSONObject jsonObject = new JSONObject();
 
 		jsonObject.put("code", code);
 		jsonObject.put("messege", messege);
@@ -35,12 +40,10 @@ JSONObject jsonObject = new JSONObject();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		else{
+		} else {
 			jsonObject.put("data", null);
 		}
-		
-		
+
 		System.out.println("jsonObject " + jsonObject);
 		return jsonObject;
 

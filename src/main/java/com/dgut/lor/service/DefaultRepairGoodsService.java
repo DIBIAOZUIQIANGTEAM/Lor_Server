@@ -11,9 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dgut.lor.entity.Admin;
 import com.dgut.lor.entity.RepairGoods;
-import com.dgut.lor.repository.IAdminRepository;
 import com.dgut.lor.repository.IRepairGoodsRepository;
 
 @Component

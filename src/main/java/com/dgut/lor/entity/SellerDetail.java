@@ -1,21 +1,15 @@
 package com.dgut.lor.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
-
-import com.dgut.lor.util.DateRecord;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-
+/*
+ * 用于解析百度地图数据平台返回的商家信息
+ */
 public class SellerDetail {
 
 	int status;
 	Poi poi;
 
 	String message;
-	
+
 	public String getMessage() {
 		return message;
 	}

@@ -6,6 +6,9 @@ import javax.persistence.ManyToOne;
 import com.dgut.lor.util.DateRecord;
 
 
+/*
+ * 订单评价表
+ */
 @Entity
 public class OrdersComment extends DateRecord{
 	

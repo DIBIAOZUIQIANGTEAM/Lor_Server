@@ -11,7 +11,7 @@ import com.dgut.lor.entity.Orders;
 @Repository
 public interface IOrdersRepository extends PagingAndSortingRepository<Orders, Integer>{
 	
-	@Query("from Orders orders where orders.buyer.id = ?1")	
+	@Query("from Orders orders where orders.seller.id = ?1")	
 	Page<Orders> findOrdersPageByBuyerId(Integer id, Pageable pageable);
 
 }
